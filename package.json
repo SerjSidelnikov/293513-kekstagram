@@ -1,0 +1,24 @@
+{
+  "name": "kekstagram",
+  "version": "0.0.1",
+  "description": "Kekstagram",
+  "main": "index.js",
+  "scripts": {
+    "test:lint": "eslint .",
+    "test": "npm run test:lint"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SerjSidelnikov/293513-kekstagram.git"
+  },
+  "author": "Sergey Sidelnikov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SerjSidelnikov/293513-kekstagram/issues"
+  },
+  "homepage": "https://github.com/SerjSidelnikov/293513-kekstagram#readme",
+  "devDependencies": {
+    "eslint": "5.6.0",
+    "eslint-config-htmlacademy": "0.5.2"
+  }
+}

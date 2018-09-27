@@ -1,3 +1,5 @@
+'use strick';
+
 const userParameter = process.argv[2];
 
 const KEYS = {
