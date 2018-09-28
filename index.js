@@ -1,4 +1,4 @@
-'use strick';
+'use strict';
 
 const userParameter = process.argv[2];
 
