@@ -1,3 +1,5 @@
+'use strict';
+
 const userParameter = process.argv[2];
 
 const KEYS = {
