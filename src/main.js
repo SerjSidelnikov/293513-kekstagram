@@ -28,5 +28,6 @@ if (KEYS[userParameter]) {
   process.exit(0);
 } else {
   unknown.execute(userParameter);
+  help.execute();
   process.exit(1);
 }
