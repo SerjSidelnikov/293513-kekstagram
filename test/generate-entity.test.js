@@ -15,6 +15,12 @@ const isUnique = (arr) => {
   return Object.keys(obj).length === arr.length;
 };
 
+const checkHashtags = entity.hashtags.every((item) => item.startsWith(`#`));
+const checkHashtagsSpace = entity.hashtags.some((item) => item.includes(` `));
+const checkHashtagsLength = entity.hashtags.some((item) => item.length > 20);
+const checkComments = entity.comments.some((item) => typeof item !== `string`);
+const checkCommentsLength = entity.comments.some((item) => item.length > 140);
+
 describe(`Generate JSON command`, () => {
   describe(`Check url image`, () => {
     it(`check correct value`, () => {
@@ -48,7 +54,7 @@ describe(`Generate JSON command`, () => {
     });
 
     it(`each line starts with a '#' character`, () => {
-      assert(entity.hashtags.every((item) => item.startsWith(`#`)));
+      assert(checkHashtags);
     });
 
     it(`there must be only unique values`, () => {
@@ -57,13 +63,11 @@ describe(`Generate JSON command`, () => {
     });
 
     it(`values must not contain spaces`, () => {
-      const check = entity.hashtags.some((item) => item.includes(` `));
-      assert.equal(check, false);
+      assert.equal(checkHashtagsSpace, false);
     });
 
     it(`the length of one word does not exceed 20 characters`, () => {
-      const check = entity.hashtags.some((item) => item.length > 20);
-      assert.equal(check, false);
+      assert.equal(checkHashtagsLength, false);
     });
   });
 
@@ -93,13 +97,11 @@ describe(`Generate JSON command`, () => {
     });
 
     it(`array must contain strings`, () => {
-      const check = entity.comments.some((item) => typeof item !== `string`);
-      assert.equal(check, false);
+      assert.equal(checkComments, false);
     });
 
     it(`the length of one word does not exceed 20 characters`, () => {
-      const check = entity.comments.some((item) => item.length > 140);
-      assert.equal(check, false);
+      assert.equal(checkCommentsLength, false);
     });
   });
 
