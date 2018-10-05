@@ -1,7 +1,7 @@
 'use strict';
 
 const assert = require(`assert`);
-const {effect, WEEK} = require(`../src/data/data`);
+const {Constants} = require(`../src/data/data`);
 const generateEntity = require(`../src/generator/generate-entity`);
 const entity = generateEntity();
 
@@ -44,7 +44,7 @@ describe(`Generate JSON command`, () => {
     });
 
     it(`should return one of the preset values`, () => {
-      assert(effect.includes(entity.effect));
+      assert(Constants.EFFECTS.includes(entity.effect));
     });
   });
 
@@ -112,7 +112,7 @@ describe(`Generate JSON command`, () => {
 
     it(`the number must be in the specified interval`, () => {
       const date = Date.now();
-      const minDate = date - WEEK;
+      const minDate = date - Constants.WEEK;
       assert(entity.date >= minDate && entity.date <= date);
     });
   });

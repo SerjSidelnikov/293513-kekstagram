@@ -1,9 +1,7 @@
 'use strict';
 
 const {
-  MAX_SCALE,
-  MAX_LIKES,
-  effect,
+  Constants,
   getRandomNumber,
   getHashtags,
   getRandomText,
@@ -13,11 +11,11 @@ const {
 
 const generateEntity = () => ({
   'url': `https://picsum.photos/600/?random`,
-  'scale': getRandomNumber(MAX_SCALE),
-  'effect': effect[getRandomNumber(effect.length - 1)],
+  'scale': getRandomNumber(Constants.MAX_SCALE),
+  'effect': Constants.EFFECTS[getRandomNumber(Constants.EFFECTS.length - 1)],
   'hashtags': getHashtags(),
   'description': getRandomText(),
-  'likes': getRandomNumber(MAX_LIKES),
+  'likes': getRandomNumber(Constants.MAX_LIKES),
   'comments': getComments(),
   'date': getDate(),
 });
