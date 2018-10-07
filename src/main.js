@@ -7,6 +7,7 @@ const license = require(`./license`);
 const help = require(`./help`);
 const welcome = require(`./default`);
 const unknown = require(`./unknown`);
+const generate = require(`./generate`);
 
 const KEYS = {
   '--version': version,
@@ -18,12 +19,10 @@ const KEYS = {
 
 const userParameter = process.argv[2];
 
-if (userParameter === undefined) {
+if (!userParameter) {
   welcome.execute();
-  process.exit(0);
-}
-
-if (KEYS[userParameter]) {
+  generate.execute();
+} else if (KEYS[userParameter]) {
   KEYS[userParameter].execute();
   process.exit(0);
 } else {
