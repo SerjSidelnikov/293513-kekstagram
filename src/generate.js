@@ -152,5 +152,6 @@ module.exports = {
   description: `Creates an object with data`,
   execute() {
     welcomeEntity();
-  }
+  },
+  writeEntity,
 };
