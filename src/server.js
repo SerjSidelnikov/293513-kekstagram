@@ -38,20 +38,26 @@ const readFile = async (pathValue, res) => {
   const ext = path.extname(pathValue).slice(1);
   const type = contentType[ext] ? contentType[ext] : `text/plain`;
   res.setHeader(`content-type`, type);
-  res.end(data);
+  res.send(data);
 };
 
 const readDir = async (pathValue, res) => {
   const files = await readdir(pathValue);
   const content = printDirectory(pathValue, files);
   res.setHeader(`content-type`, `text/html`);
-  res.end(content);
+  res.send(content);
 };
 
 const server = http.createServer((req, res) => {
-  const {pathname} = url.parse(req.url);
-  const filename = path.basename(pathname);
-  const absolutePath = path.join(__dirname, `..`, `static`, filename);
+  let {pathname} = url.parse(req.url);
+
+  if (pathname !== `/`) {
+    const staticPos = pathname.lastIndexOf(`static`);
+    const wordStaticLength = 8;
+    pathname = pathname.slice(staticPos + wordStaticLength);
+  }
+
+  const absolutePath = `${__dirname}/../static/${pathname}`;
 
   (async () => {
     try {
