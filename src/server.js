@@ -38,14 +38,14 @@ const readFile = async (pathValue, res) => {
   const ext = path.extname(pathValue).slice(1);
   const type = contentType[ext] ? contentType[ext] : `text/plain`;
   res.setHeader(`content-type`, type);
-  res.send(data);
+  res.end(data);
 };
 
 const readDir = async (pathValue, res) => {
   const files = await readdir(pathValue);
   const content = printDirectory(pathValue, files);
   res.setHeader(`content-type`, `text/html`);
-  res.send(content);
+  res.end(content);
 };
 
 const server = http.createServer((req, res) => {
