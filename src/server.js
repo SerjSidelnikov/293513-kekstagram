@@ -11,27 +11,7 @@ const HOSTNAME = `127.0.0.1`;
 const DEFAULT_PORT = 3000;
 const PORT = process.argv[3] || DEFAULT_PORT;
 
-const stat = promisify(fs.stat);
-const readdir = promisify(fs.readdir);
 const readfile = promisify(fs.readFile);
-
-const printDirectory = (relativePath, files) => {
-  return `
-    <!DOCTYPE html>
-    <html lang="en">
-      <head>
-        <meta charset="UTF-8">
-        <title>Directory content</title>
-      </head>
-
-      <body>
-        <ul>
-          ${files.map((it) => `<li><a href="${relativePath}/${it}">${it}</a></li>`).join(``)}
-        </ul>
-      </body>
-    </html>
-  `;
-};
 
 const readFile = async (pathValue, res) => {
   const data = await readfile(pathValue);
@@ -41,36 +21,20 @@ const readFile = async (pathValue, res) => {
   res.end(data);
 };
 
-const readDir = async (pathValue, res) => {
-  const files = await readdir(pathValue);
-  const content = printDirectory(pathValue, files);
-  res.setHeader(`content-type`, `text/html`);
-  res.end(content);
-};
-
 const server = http.createServer((req, res) => {
   let {pathname} = url.parse(req.url);
 
-  if (pathname !== `/`) {
-    const staticPos = pathname.lastIndexOf(`static`);
-    const wordStaticLength = 8;
-    pathname = pathname.slice(staticPos + wordStaticLength);
+  if (pathname === `/`) {
+    pathname = `/index.html`;
   }
 
-  const absolutePath = `${__dirname}/../static/${pathname}`;
+  const absolutePath = `${__dirname}/../static${pathname}`;
 
   (async () => {
     try {
-      const pathStat = await stat(absolutePath);
-
+      await readFile(absolutePath, res);
       res.statusCode = 200;
       res.statusMessage = `OK`;
-
-      if (pathStat.isDirectory()) {
-        await readDir(absolutePath, res);
-      } else {
-        await readFile(absolutePath, res);
-      }
     } catch (e) {
       res.writeHead(404, `Not Found`);
       res.end();
