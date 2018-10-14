@@ -1,5 +1,16 @@
 'use strict';
 
+const contentType = {
+  html: `text/html; charset=UTF-8`,
+  css: `text/css`,
+  js: `application/javascript`,
+  ico: `image/x-icon`,
+  jpg: `image/jpeg`,
+  jpeg: `image/jpeg`,
+  png: `image/png`,
+  gif: `image/gif`,
+};
+
 const Constants = {
   WEEK: 1000 * 60 * 60 * 24 * 7,
   MAX_SCALE: 100,
@@ -53,6 +64,7 @@ const getDate = () => {
 };
 
 module.exports = {
+  contentType,
   Constants,
   getRandomNumber,
   getHashtags,
