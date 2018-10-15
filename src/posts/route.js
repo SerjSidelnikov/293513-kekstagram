@@ -1,11 +1,11 @@
 'use strict';
 
 const express = require(`express`);
-// eslint-disable-next-line new-cap
-const postsRouter = express.Router();
 const entity = require(`../generator/generate-entity`);
 const NotFoundError = require(`../error/not-found-error`);
 const IllegalArgumentError = require(`../error/illegal-argument-error`);
+// eslint-disable-next-line new-cap
+const postsRouter = express.Router();
 
 const DEFAULT_SKIP = 0;
 const DEFAULT_LIMIT = 50;
