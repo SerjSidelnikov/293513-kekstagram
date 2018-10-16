@@ -1,11 +1,14 @@
 'use strict';
 
 const express = require(`express`);
+const multer = require(`multer`);
 const entity = require(`../generator/generate-entity`);
 const NotFoundError = require(`../error/not-found-error`);
 const IllegalArgumentError = require(`../error/illegal-argument-error`);
 // eslint-disable-next-line new-cap
 const postsRouter = express.Router();
+const jsonParser = express.json();
+const upload = multer();
 
 const DEFAULT_SKIP = 0;
 const DEFAULT_LIMIT = 50;
@@ -43,6 +46,11 @@ postsRouter.get(`/:date`, (req, res) => {
   }
 
   res.send(found);
+});
+
+postsRouter.post(``, jsonParser, upload.none(), (req, res) => {
+  const body = req.body;
+  res.send(body);
 });
 
 module.exports = {
