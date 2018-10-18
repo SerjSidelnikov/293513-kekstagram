@@ -36,7 +36,7 @@ describe(`GET /api/posts`, () => {
     get(`/api/aaaa`).
     set(`Accept`, `application/json`).
     expect(404).
-    expect(`Page was not found`).
+    expect(`Page not found`).
     expect(`Content-Type`, /html/);
   });
 
