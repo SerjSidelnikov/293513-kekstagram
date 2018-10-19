@@ -28,6 +28,23 @@ const generateEntity = (count) => {
 
 const posts = generateEntity(DEFAULT_LIMIT);
 
+postsRouter.post(``, jsonParser, upload.single(`filename`), (req, res) => {
+  const body = req.body;
+  const filename = req.file;
+
+  if (filename) {
+    body.filename = {name: filename.originalname};
+  }
+
+  res.send(validate(body));
+});
+
+postsRouter.use((err, req, res, _next) => {
+  if (err instanceof ValidationError) {
+    res.status(err.code).json(err.errors);
+  }
+});
+
 postsRouter.get(``, (req, res) => {
   const skip = parseInt(req.query.skip, 10) || DEFAULT_SKIP;
   const limit = parseInt(req.query.limit, 10) || DEFAULT_LIMIT;
@@ -49,23 +66,6 @@ postsRouter.get(`/:date`, (req, res) => {
   }
 
   res.send(found);
-});
-
-postsRouter.post(``, jsonParser, upload.single(`filename`), (req, res) => {
-  const body = req.body;
-  const filename = req.file;
-
-  if (filename) {
-    body.filename = {name: filename.originalname};
-  }
-
-  res.send(validate(body));
-});
-
-postsRouter.use((err, req, res, _next) => {
-  if (err instanceof ValidationError) {
-    res.status(err.code).json(err.errors);
-  }
 });
 
 module.exports = {
